@@ -1,39 +1,79 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Dimensions
 } from 'react-native';
+var {height, width} = Dimensions.get('window');
+
+import MapView from 'react-native-maps';
 
 export default class foodTrucks extends Component {
+    constructor(props){
+    super(props);
+    this.state ={
+      region: {
+          latitude: 39.739236,
+          longitude: -104.990251,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421
+      },
+      markers: [{
+        title: 'Greetings',
+        image: require('./images/truck.png'),
+        description: 'this is the food you are looking for',
+        coordinates: {
+          latitude: 39.739236,
+          longitude: -104.990251
+          },
+        },
+      {
+        title: 'Greetings',
+        image: require('./images/truck.png'),
+        description: 'this is the food you are looking for',
+        coordinates: {
+          latitude: 3.149771,
+          longitude: 101.655449
+        },  
+      }]
+    };
+    this.onRegionChange = this.onRegionChange.bind(this);
+  }
+
+  onRegionChange(region) {
+    this.setState({ region });
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+       <MapView style={styles.map}
+        region={this.state.region}
+        onRegionChange={this.onRegionChange}
+      >
+      {this.state.markers.map((marker, i) => (
+        <MapView.Marker
+          key={i}
+          image={marker.image}
+          coordinate={marker.coordinates}
+          title={marker.title}
+          description={marker.description}
+        />
+        ))}
+      </MapView>
+    </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  map: {
+    height: height,
+    width: width
+  },
   container: {
-    flex: 1,
+    flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
