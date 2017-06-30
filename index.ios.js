@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
+  Image,
   Text,
   View,
   Dimensions
@@ -22,7 +23,7 @@ export default class foodTrucks extends Component {
       },
       markers: [{
         title: 'Greetings',
-        image: require('./images/truck.png'),
+        image: require('./images/icons/truck.png'),
         description: 'this is the food you are looking for',
         coordinates: {
           latitude: 39.739236,
@@ -31,7 +32,7 @@ export default class foodTrucks extends Component {
         },
       {
         title: 'Greetings',
-        image: require('./images/truck.png'),
+        image: require('./images/icons/truck.png'),
         description: 'this is the food you are looking for',
         coordinates: {
           latitude: 3.149771,
@@ -59,7 +60,15 @@ export default class foodTrucks extends Component {
           coordinate={marker.coordinates}
           title={marker.title}
           description={marker.description}
-        />
+        >
+          <MapView.Callout>
+            <View style={styles.callout}>
+              <Image style={styles.calloutPhoto} source={marker.image}/>
+              <Text style={styles.calloutTitle}>{marker.title}</Text>
+              <Text>{marker.description}</Text>
+            </View>
+          </MapView.Callout>
+        </MapView.Marker>
         ))}
       </MapView>
     </View>
@@ -68,6 +77,21 @@ export default class foodTrucks extends Component {
 }
 
 const styles = StyleSheet.create({
+  callout: {
+    flex: 1,
+    paddingRight: 10,
+    paddingBottom: 10,
+    marginRight: 10,
+    marginBottom: 10
+  },
+  calloutPhoto: {
+    flex: 1,
+    width: 166,
+    height: 83
+  },
+  calloutTitle: {
+    fontSize: 16,
+  },
   map: {
     height: height,
     width: width
