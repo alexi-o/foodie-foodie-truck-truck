@@ -7,11 +7,15 @@ import {
   View,
   Dimensions
 } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 var {height, width} = Dimensions.get('window');
 
 import MapView from 'react-native-maps';
 
 export default class foodTrucks extends Component {
+  static navigationOptions = {
+    title: 'Foodie Foodie Truck Truck',
+  };
     constructor(props){
     super(props);
     this.state ={
@@ -42,7 +46,7 @@ export default class foodTrucks extends Component {
     };
     this.onRegionChange = this.onRegionChange.bind(this);
   }
-
+  
   onRegionChange(region) {
     this.setState({ region });
   }
@@ -87,7 +91,7 @@ const styles = StyleSheet.create({
   calloutPhoto: {
     flex: 1,
     width: 166,
-    height: 83
+    height: 75
   },
   calloutTitle: {
     fontSize: 16,
