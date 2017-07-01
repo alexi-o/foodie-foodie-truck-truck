@@ -7,15 +7,14 @@ import {
   View,
   Dimensions
 } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { Header } from './app/components';
+import Home from './app/routes/Home/Home.js';
+
 var {height, width} = Dimensions.get('window');
 
 import MapView from 'react-native-maps';
 
 export default class foodTrucks extends Component {
-  static navigationOptions = {
-    title: 'Foodie Foodie Truck Truck',
-  };
     constructor(props){
     super(props);
     this.state ={
@@ -50,6 +49,15 @@ export default class foodTrucks extends Component {
   onRegionChange(region) {
     this.setState({ region });
   }
+
+  renderHeader(){
+    return <Header />
+  }
+
+  renderContent(){
+    return <Home />
+  }
+
   render() {
     return (
       <View style={styles.container}>
